@@ -5,23 +5,45 @@
 00090	C Author: Bryan Hazelbaker <bryan.hazelbaker@gmail.com>           C
 00100	C See: https://github.com/delphian/ppcl-library                   C
 00119	C                                                                 C
-00120	C At this time Siemens building controllers do not have any       C
-00122	C system variables to account for time passage. Creating them     C
-00124	C allows programs to sync on the minute or second with each       C
-00126	C other.                                                          C
+00120	C Description: At this time Siemens building controllers do not   C
+00121	C have any system variables to account for time passage. Creating C
+00122	C them allows programs to sync on the minute or second with each  C
+00123	C other.                                                          C
 00139	C                                                                 C
-00140	C Bug: 05000 Fails on leap years.                                 C
-00159	C                                                                 C
-00160	C Requires: Nothing                                               C
-00169   C                                                                 C
-00170	C Version: 2.0                                                    C
-00180	C Conforming program to PPCL template 2.0. Adding comments.       C
-00198	C=================================================================C
-00199	C
-00200	C ----- Declare locals and power restart line ---------------------
-00210	LOCAL("TIME_MIN","TIME_SEC","TIME_DIM")
+00140	C Requires: Nothing                                               C
+00149   C                                                                 C
+00150	C Version: 2.0                                                    C
+00160	C Conforming program to PPCL template 2.0. Adding comments.       C
+00179   C                                                                 C
+00180	C Bug: 05000 Fails on leap years.                                 C
+00199	C                                                                 C
+00200	C License MIT: Copyright (C) 2013 Bryan Hazelbaker                C
+00205	C Permission is hereby granted, free of charge, to any person     C
+00210	C obtaining a copy of this software and associated documentation  C
+00215	C files (the "Software"), to deal in the Software without         C
+00220	C restriction, including without limitation the rights to use,    C
+00225	C copy, modify, merge, publish, distribute, sublicense, and/or    C
+00230	C sell copies of the Software, and to permit persons to whom the  C
+00235	C Software is furnished to do so, subject to the following        C
+00240	C conditions:                                                     C
+00245	C                                                                 C
+00250	C The above copyright notice and this permission notice shall be  C
+00255	C included in all copies or substantial portions of the Software. C
+00260	C                                                                 C
+00265	C THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, C
+00270	C EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES C
+00275	C OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND        C
+00280	C NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT     C
+00285	C HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,    C
+00290	C WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING    C
+00300	C FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR   C
+00305	C OTHER DEALINGS IN THE SOFTWARE.                                 C
+00398	C=================================================================C
+00399	C
+00400	C ----- Declare locals and power restart line ---------------------
+00410	LOCAL("TIME_MIN","TIME_SEC","TIME_DIM")
 00480	ONPWRT(500)
-00490	C
+00499	C
 00500	C ----- Initialize Program ----------------------------------------
 00510	C - Get Minute Component Out of Current Time
 00520	GOSUB 3000

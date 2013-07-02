@@ -10,27 +10,37 @@
 00009	C @see https://github.com/delphian/ppcl-library
 00010	C @author Bryan Hazelbaker <bryan.hazelbaker@gmail.com>
 00040	C
-00050   C=================================================================C
+00050	C=================================================================C
 00060	C Template: [Uniform PPCL Program Template Version]               C
-00070	C Organization Name: [Company Name]                               C
-00080	C Program Title: [Program Title]                                  C
-00090	C Author: [First and Last name] <[Email address]>                 C
+00070	C Organization Name: [Authoring Company Name]                     C
+00080	C Title: [Program Title]time                                      C
+00090	C Author: [First and Last Name] <[Email address]>                 C
 00100	C See: [Fully formed URL of permalink source code or docs]        C
-00110	C See: [As many permanlinks as needed]                            C
 00119	C                                                                 C
-00120	C Description: [Description of _why_ this program must exist]     C
-00130	C [A proper description should take a few lines]                  C
+00120	C Description: [Description of _why_ this program must exit]      C
+00122	C [It is appropriate for this description to take several lines]  C
 00139	C                                                                 C
-00140	C Bug: [Full line #] [Omit entire line unless if no bug]          C
-00150	C Bug: [Full line #] [Etc... Each bug has its own line]           C
-00159	C                                                                 C
-00160	C Requires: [Required 3rd Party Programs|Nothing]                 C
-00169	C                                                                 C
-00170	C Version: [Version Number]                                       C
-00180	C [Description of changes since last version]                     C
+00140	C Requires: [Required 3rd Party Programs|Nothing]                 C
+00149   C                                                                 C
+00150	C Version: [Version Number]                                       C
+00160	C [Description of changes since last version]                     C
+00169   C                                                                 C
+00170	C Bug: [Full line #] [Omit line if no bug. One line per bug]      C
+00179	C                                                                 C
+00180	C License: Copyright (C) [YEAR] [First and Last Name]             C
+00181   C This program is free software: you can redistribute it and/or   C
+00182	C modify it under the terms of the GNU General Public License as  C
+00183	C published by the Free Software Foundation, either version 3 of  C
+00184	C the License, or (at your option) any later version.             C
+00185	C                                                                 C
+00186	C This program is distributed in the hope that it will be useful, C
+00187	C but WITHOUT ANY WARRANTY; without even the implied warranty of  C
+00188	C MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the    C
+00189	C GNU General Public License for more details at                  C
+00190	C http://www.gnu.org/copyleft/gpl.html                            C
 00198	C=================================================================C
 00199	C
-00200	C ----- Declare locals and power restart line. --------------------
+00200	C ----- Declare locals and power restart line ---------------------
 00210	C LOCAL("TESTLDI")
 00480	C ONPWRT(500)
 00490	C
