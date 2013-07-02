@@ -20,10 +20,12 @@ A typical PPCL programmer will be trained to make use of numerous GOTO statement
  * Native functions can not be embedded for their return value.
  * No virtual controller on the PC (No functions to interact with a computer OS).
  * Global namespace only.
+ 
 
 #### Installation ####
 
  * `git clone --recursive https://github.com/delphian/ppcl-library.git`
  * `cd ppcl-library`
+
 
  Although there are no functions to easily interface with a third party, most Siemens building level automation controllers come with a telnet port. It does not take much work to code up a simple interface.
