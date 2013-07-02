@@ -11,22 +11,26 @@
 00010	C @author Bryan Hazelbaker <bryan.hazelbaker@gmail.com>
 00040	C
 00050   C=================================================================C
-00052	C Template: [Uniform PPCL Program Template Version]               C
-00054	C Company Name: [Company Name]                                    C
-00056	C Program Title: [Program Title]                                  C
-00058	C Author: [First and Last name] <[Email address]>                 C
-00060	C See: [Fully formed URL of permalink source code or docs]        C
-00062	C See: [As many permanlinks as needed]                            C
-00064	C                                                                 C
-00066	C [Description of what program does and _why_ it needs to do it]  C
-00068	C                                                                 C
-00070	C Requires: [Required 3rd Party Programs|Nothing]                 C
-00072	C                                                                 C
-00074	C Version: [Version Number]                                       C
-00076	C [Description of changes since last version]                     C
-00078	C=================================================================C
-00095	C
-00100	C ----- Declare locals and power restart line. --------------------
+00060	C Template: [Uniform PPCL Program Template Version]               C
+00070	C Organization Name: [Company Name]                               C
+00080	C Program Title: [Program Title]                                  C
+00090	C Author: [First and Last name] <[Email address]>                 C
+00100	C See: [Fully formed URL of permalink source code or docs]        C
+00110	C See: [As many permanlinks as needed]                            C
+00119	C                                                                 C
+00120	C Description: [Description of _why_ this program must exist]     C
+00130	C [A proper description should take a few lines]                  C
+00139	C
+00140	C Bug: [Full line #] [Omit entire line unless if no bug]          C
+00150	C Bug: [Full line #] [Etc... Each bug has its own line]           C
+00159	C                                                                 C
+00160	C Requires: [Required 3rd Party Programs|Nothing]                 C
+00169	C                                                                 C
+00170	C Version: [Version Number]                                       C
+00180	C [Description of changes since last version]                     C
+00198	C=================================================================C
+00199	C
+00200	C ----- Declare locals and power restart line. --------------------
 00490	C
 00500	C ----- Initialize Program ----------------------------------------
 00990	C

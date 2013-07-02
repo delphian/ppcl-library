@@ -1,0 +1,79 @@
+00050	C=================================================================C
+00052	C Template: 2.0                                                   C
+00052	C Organization Name: AOM                                          C
+00053	C Program Title: time                                             C
+00053	C Author: Bryan Hazelbaker <bryan.hazelbaker@gmail.com>           C
+00053	C See: https://github.com/delphian/ppcl-library                   C
+00054	C                                                                 C
+00056	C At this time Siemens building controllers do not have any       C
+00058	C system variables to account for time passage. Creating them     C
+00060	C allows programs to sync on the minute or second with each       C
+00062	C other.                                                          C
+00063	C Bug: 05000 Fails on leap years.                                 C
+00064	C                                                                 C
+00066	C Requires: Nothing                                               C
+00067   C                                                                 C
+00068	C Version: 2.0                                                    C
+00070	C Conforming program to PPCL template 2.0. Adding comments.       C
+00068	C=================================================================C
+00095	C
+00100	C ----- Declare locals and power restart line ---------------------
+00110	LOCAL("TIME_MIN","TIME_SEC","TIME_DIM")
+00120	ONPWRT(500)
+00490	C
+00500	C ----- Initialize Program ----------------------------------------
+00510	C - Get Minute Component Out of Current Time
+00520	GOSUB 3000
+00530	C - Get Hour Component Out of Current Time
+00540	GOSUB 4000
+00550	C - Calculate Total Days in Current Month
+00560	GOSUB 5000
+00570	GOTO 1000
+00990	C
+01000	C ===== Main Control Loop =========================================
+01020	VTIME = CRTIME
+01030	C - Get Second Component Out of Current Time
+01040	GOSUB 2000
+01050	C - Get Minute Component Out of Current Time
+01060	SAMPLE(1) GOSUB 3000
+01070	C - Get Hour Component Out of Current Time
+01080	SAMPLE(60) GOSUB 4000
+01090	C - Calculate Total Days in Current Month
+01100	SAMPLE(60) GOSUB 5000
+01500	GOTO 20000
+01510	C ===== End Main Control Loop =====================================
+01520	C
+02000	C ----- Get Second Component Out of Current Time ------------------
+02010	"$TIME_SEC" = "$TIME_MIN"
+02020	"$TIME_SEC" = "$TIME_SEC" - 1
+02030	IF("$TIME_SEC" .GT. 1) THEN GOTO 2020
+02040	"$TIME_SEC" = "$TIME_SEC" * 60
+02050	C - Export seconds value to a virtual point
+02060	"CPLT_TIME.SECOND" = "$TIME_SEC"
+02980	RETURN
+02990	C
+03000	C ----- Get Minute Component Out of Current Time ------------------
+03010	"$TIME_MIN" = CRTIME
+03020	IF("$TIME_MIN" .GT. 1) THEN "$TIME_MIN" = "$TIME_MIN" - 1
+03030	IF("$TIME_MIN" .GT. 1) THEN GOTO 3020
+03040	"$TIME_MIN" = "$TIME_MIN" * 60
+03050	C - Export minutes value to a virtual point
+03060	"CPLT_TIME.MINUTE" = "$TIME_MIN"
+03880	RETURN
+03890	C
+04000	C ----- Get Hour Component Out of Current Time --------------------
+04010	C - Export hour value to a virtual point
+04020	"CPLT_TIME.HOUR" = CRTIME
+04980	RETURN
+09890	C
+05000	C ----- Calculate Total Days in Current Month ---------------------
+05010	"$TIME_DIM" = 31
+05020	IF(MONTH .EQ. 2) THEN "$TIME_DIM" = 28
+05030	IF(MONTH .EQ. 3 .OR. MONTH .EQ. 4) THEN "$TIME_DIM" = 30
+05040	IF(MONTH .EQ. 6 .OR. MONTH .EQ. 9) THEN "$TIME_DIM" = 30
+05050	IF(MONTH .EQ. 11) THEN "$TIME_DIM" = 30
+05060	"CPLT_TIME.DIM" = "$TIME_DIM"
+05980	RETURN
+05990	C
+20000	C ----- Return to Main Program Loop -------------------------------
+20010	GOTO 1000
