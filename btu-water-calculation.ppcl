@@ -6,7 +6,8 @@
 00100	C See: https://github.com/delphian/ppcl-library                   C
 00119	C                                                                 C
 00120	C Description: Records current BTU/H rate, total BTUs ever, total C
-00122	C BTUs for month, total BTUs for day and total BTUs per hour.     C
+00122	C BTUs for month, total BTUs for day and total BTUs per hour for  C
+00124	C a chilled water loop.                                           C
 00139	C                                                                 C
 00140	C Requires: time.ppcl                                             C
 00149   C                                                                 C
