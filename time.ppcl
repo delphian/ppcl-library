@@ -51,23 +51,21 @@
 00540	GOSUB 4000
 00550	C - Calculate Total Days in Current Month
 00560	GOSUB 5000
-00570	C - Jump Into Main Control Loop
-00570	GOTO 1000
-00990	C
+00999	C
 01000	C ===== Main Control Loop =========================================
-01020	VTIME = CRTIME
-01030	C - Get Second Component Out of Current Time
-01040	GOSUB 2000
-01050	C - Get Minute Component Out of Current Time
-01060	SAMPLE(1) GOSUB 3000
-01070	C - Get Hour Component Out of Current Time
-01080	SAMPLE(60) GOSUB 4000
-01090	C - Calculate Total Days in Current Month
-01100	SAMPLE(60) GOSUB 5000
-01110	C - Loop Back to Top of the Main Control Loop
-01970	GOTO 20000
-01980	C ===== End Main Control Loop =====================================
-01990	C
+01010	VTIME = CRTIME
+01020	C - Get Second Component Out of Current Time
+01030	GOSUB 2000
+01040	C - Get Minute Component Out of Current Time
+01050	SAMPLE(1) GOSUB 3000
+01060	C - Get Hour Component Out of Current Time
+01070	SAMPLE(60) GOSUB 4000
+01080	C - Calculate Total Days in Current Month
+01090	SAMPLE(60) GOSUB 5000
+01980	C - Loop Back to Top of the Main Control Loop
+01990	GOTO 20000
+01998	C ===== End Main Control Loop =====================================
+01999	C
 02000	C ----- Get Second Component Out of Current Time ------------------
 02010	"$TIME_SEC" = "$TIME_MIN"
 02020	"$TIME_SEC" = "$TIME_SEC" - 1
@@ -75,8 +73,8 @@
 02040	"$TIME_SEC" = "$TIME_SEC" * 60
 02050	C - Export seconds value to a virtual point
 02060	"CPLT_TIME.SECOND" = "$TIME_SEC"
-02980	RETURN
-02990	C
+02990	RETURN
+02999	C
 03000	C ----- Get Minute Component Out of Current Time ------------------
 03010	"$TIME_MIN" = CRTIME
 03020	IF("$TIME_MIN" .GT. 1) THEN "$TIME_MIN" = "$TIME_MIN" - 1
@@ -84,13 +82,13 @@
 03040	"$TIME_MIN" = "$TIME_MIN" * 60
 03050	C - Export minutes value to a virtual point
 03060	"CPLT_TIME.MINUTE" = "$TIME_MIN"
-03880	RETURN
-03890	C
+03990	RETURN
+03999	C
 04000	C ----- Get Hour Component Out of Current Time --------------------
 04010	C - Export hour value to a virtual point
 04020	"CPLT_TIME.HOUR" = CRTIME
-04980	RETURN
-09890	C
+04990	RETURN
+04999	C
 05000	C ----- Calculate Total Days in Current Month ---------------------
 05010	"$TIME_DIM" = 31
 05020	IF(MONTH .EQ. 2) THEN "$TIME_DIM" = 28
@@ -99,7 +97,8 @@
 05050	IF(MONTH .EQ. 11) THEN "$TIME_DIM" = 30
 05060	C - Export Day of Month to a virtual point
 05070	"CPLT_TIME.DIM" = "$TIME_DIM"
-05980	RETURN
-05990	C
-20000	C ----- Return to Main Program Loop -------------------------------
-20010	GOTO 1000
+05990	RETURN
+05999	C
+20000	C ----- Return to Main Control Loop -------------------------------
+29990	GOTO 1000
+29999	C
