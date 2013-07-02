@@ -12,20 +12,18 @@ A typical PPCL programmer will be trained to make use of numerous GOTO statement
 
 #### Language Overview ####
 
-  * Basic style syntax with line numbering.
-  * Programmable functions only achieved via Gosub method.
-  * If, Then, Else conditionals may only contain a single line of code to execute for each condition.
-  * No native function to return the remainder of a division.
-  * No native looping control flow.
-  * Native functions can not be embedded for their return value.
-  * No virtual controller on the PC (No functions to interact with a computer OS).
-  * Global namespace only.
-
+ * Basic style syntax with line numbering.
+ * Programmable functions only achieved via Gosub method.
+ * If, Then, Else conditionals may only contain a single line of code to execute for each condition.
+ * No native function to return the remainder of a division.
+ * No native looping control flow.
+ * Native functions can not be embedded for their return value.
+ * No virtual controller on the PC (No functions to interact with a computer OS).
+ * Global namespace only.
 
 #### Installation ####
 
-  1. `git clone --recursive https://github.com/delphian/ppcl-library.git`
-  2. `cd ppcl-library`
+ 1. `git clone --recursive https://github.com/delphian/ppcl-library.git`.
+ 2. `cd ppcl-library`.
 
-
- Although there are no functions to easily interface with a third party, most Siemens building level automation controllers come with a telnet port. It does not take much work to code up a simple interface.
+Although there are no functions to easily interface with a third party, most Siemens building level automation controllers come with a telnet port. It does not take much work to code up a simple interface.
