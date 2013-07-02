@@ -24,26 +24,36 @@
 00149   C                                                                 C
 00150	C Version: [Version Number]                                       C
 00160	C [Description of changes since last version]                     C
-00169   C                                                                 C
-00170	C Bug: [Full line #] [Omit line if no bug. One line per bug]      C
-00179	C                                                                 C
-00180	C License: Copyright (C) [YEAR] [First and Last Name]             C
-00181   C This program is free software: you can redistribute it and/or   C
-00182	C modify it under the terms of the GNU General Public License as  C
-00183	C published by the Free Software Foundation, either version 3 of  C
-00184	C the License, or (at your option) any later version.             C
-00185	C                                                                 C
-00186	C This program is distributed in the hope that it will be useful, C
-00187	C but WITHOUT ANY WARRANTY; without even the implied warranty of  C
-00188	C MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the    C
-00189	C GNU General Public License for more details at                  C
-00190	C http://www.gnu.org/copyleft/gpl.html                            C
-00198	C=================================================================C
-00199	C
-00200	C ----- Declare locals and power restart line ---------------------
-00210	C LOCAL("TESTLDI")
-00480	C ONPWRT(500)
-00490	C
+00179   C                                                                 C
+00180	C Bug: [Full line #] [Omit line if no bug. One line per bug]      C
+00199	C                                                                 C
+00200	C License MIT: Copyright (C) 2013 Bryan Hazelbaker                C
+00205	C Permission is hereby granted, free of charge, to any person     C
+00210	C obtaining a copy of this software and associated documentation  C
+00215	C files (the "Software"), to deal in the Software without         C
+00220	C restriction, including without limitation the rights to use,    C
+00225	C copy, modify, merge, publish, distribute, sublicense, and/or    C
+00230	C sell copies of the Software, and to permit persons to whom the  C
+00235	C Software is furnished to do so, subject to the following        C
+00240	C conditions:                                                     C
+00245	C                                                                 C
+00250	C The above copyright notice and this permission notice shall be  C
+00255	C included in all copies or substantial portions of the Software. C
+00260	C                                                                 C
+00265	C THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, C
+00270	C EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES C
+00275	C OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND        C
+00280	C NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT     C
+00285	C HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,    C
+00290	C WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING    C
+00300	C FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR   C
+00305	C OTHER DEALINGS IN THE SOFTWARE.                                 C
+00398	C=================================================================C
+00399	C
+00400	C ----- Declare locals and power restart line ---------------------
+00410	C LOCAL("TESTLDI")
+00490	C ONPWRT(500)
+00499	C
 00500	C ----- Initialize Program ----------------------------------------
 00990	C
 01000	C ===== Main Control Loop =========================================

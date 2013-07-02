@@ -1,7 +1,7 @@
 00050	C=================================================================C
 00060	C Template: 2.0                                                   C
 00070	C Organization Name: AOM                                          C
-00080	C Program Title: time                                             C
+00080	C Title: time                                                     C
 00090	C Author: Bryan Hazelbaker <bryan.hazelbaker@gmail.com>           C
 00100	C See: https://github.com/delphian/ppcl-library                   C
 00119	C                                                                 C
@@ -42,7 +42,7 @@
 00399	C
 00400	C ----- Declare locals and power restart line ---------------------
 00410	LOCAL("TIME_MIN","TIME_SEC","TIME_DIM")
-00480	ONPWRT(500)
+00490	ONPWRT(500)
 00499	C
 00500	C ----- Initialize Program ----------------------------------------
 00510	C - Get Minute Component Out of Current Time
