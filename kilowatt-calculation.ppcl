@@ -1,0 +1,94 @@
+00050	C=================================================================C
+00060	C Template: 2.0                                                   C
+00070	C Organization Name: AOM                                          C
+00080	C Title: kilowatt                                                 C
+00090	C Author: Bryan Hazelbaker <bryan.hazelbaker@gmail.com>           C
+00100	C See: https://github.com/delphian/ppcl-library                   C
+00119	C                                                                 C
+00120	C Description: Calculates Consumption based on a KW pulse meter.  C
+00121	C Records All time, Monthly, Daily, and Hourly usage statistics.  C
+00139	C                                                                 C
+00140	C Requires: time.ppcl                                             C
+00149   C                                                                 C
+00150	C Version: 2.0                                                    C
+00160	C Confirming to template version 2.0                              C
+00179   C                                                                 C
+00200	C License MIT: Copyright (C) 2013 Bryan Hazelbaker                C
+00205	C Permission is hereby granted, free of charge, to any person     C
+00210	C obtaining a copy of this software and associated documentation  C
+00215	C files (the "Software"), to deal in the Software without         C
+00220	C restriction, including without limitation the rights to use,    C
+00225	C copy, modify, merge, publish, distribute, sublicense, and/or    C
+00230	C sell copies of the Software, and to permit persons to whom the  C
+00235	C Software is furnished to do so, subject to the following        C
+00240	C conditions:                                                     C
+00245	C                                                                 C
+00250	C The above copyright notice and this permission notice shall be  C
+00255	C included in all copies or substantial portions of the Software. C
+00260	C                                                                 C
+00265	C THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, C
+00270	C EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES C
+00275	C OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND        C
+00280	C NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT     C
+00285	C HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,    C
+00290	C WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING    C
+00300	C FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR   C
+00305	C OTHER DEALINGS IN THE SOFTWARE.                                 C
+00398	C=================================================================C
+00399	C
+00400	C ----- Declare locals and power restart line ---------------------
+00410	LOCAL("KWH_DIFF","KWH_LAST","RECORDED")
+00490	ONPWRT(500)
+00499	C
+00500	C ----- Initialize Program ----------------------------------------
+00510	"$RECORDED" = 0
+00520	"$KWH_DIFF" = 0
+00530	"$KWH_LAST" = "CPLT_ENERGY.PWR.KWH.TOTAL"
+00999	C
+01000	C ===== Main Control Loop =========================================
+01010	C - Accumulate KWH Usage
+01020	GOSUB 3000
+01030	IF("CPLT_TIME.MINUTE" .LT. 59) THEN "$RECORDED" = 0
+01040	C - Call Record Usage Sub Functions on minute 59, but only once per min
+01050	IF("CPLT_TIME.MINUTE" .GE. 59 .AND. "$RECORDED" .EQ. 0) THEN GOSUB 9000
+01980	C - Loop Back to Top of the Main Control Loop
+01990	GOTO 20000
+01998	C ===== End Main Control Loop =====================================
+01999	C
+02000	C ----- Record Total Day KWH Use ----------------------------------
+02010	"CPLT_ENERGY.PWR.KWH.DAY" = "CPLT_ENERGY.PWR.KW.DAY"
+02020	"CPLT_ENERGY.PWR.KW.DAY" = 0
+02990	RETURN
+02999	C
+03000	C ----- Accumulate KWH Usage --------------------------------------
+03010	"$KWH_DIFF" = "CPLT_ENERGY.PWR.KWH.TOTAL" - "$KWH_LAST"
+03020	"CPLT_ENERGY.PWR.KW.HOUR" = "CPLT_ENERGY.PWR.KW.HOUR" + "$KWH_DIFF"
+03030	"CPLT_ENERGY.PWR.KW.DAY" = "CPLT_ENERGY.PWR.KW.DAY" + "$KWH_DIFF"
+03040	"CPLT_ENERGY.PWR.KW.MONTH" = "CPLT_ENERGY.PWR.KW.MONTH" + "$KWH_DIFF"
+03050	IF("$KWH_DIFF" .GT. 0) THEN "$KWH_LAST" = "CPLT_ENERGY.PWR.KWH.TOTAL"
+03990	RETURN
+03999	C
+05000	C ----- Record Total Hour KWH Use ---------------------------------
+05010	"CPLT_ENERGY.PWR.KWH.HOUR" = "CPLT_ENERGY.PWR.KW.HOUR"
+05020	"CPLT_ENERGY.PWR.KW.HOUR" = 0
+05990	RETURN
+05999	C
+06000	C ----- Record Total Month KWH Use -------------------------------
+06010	"CPLT_ENERGY.PWR.KWH.MONTH" = "CPLT_ENERGY.PWR.KW.MONTH"
+06020	"CPLT_ENERGY.PWR.KW.MONTH" = 0
+06990	RETURN
+06999	C
+09000	C ----- Call Record Usage Sub Functions ---------------------------
+09001	C This function will only be called once per hour on minute 59
+09010	C - Record Total Hour KWH Use
+09020	GOSUB 5000
+09030	C - Record Total Day KWH Use if at end of day
+09040	IF(TIME .EQ. 23:59) THEN GOSUB 2000
+09050	C - Record Total Month KWH Use if at end of month
+09020	IF(TIME .EQ. 23:59 .AND. DAYOFM .EQ. "CPLT_TIME.DIM") THEN GOSUB 6000
+09030	"$RECORDED" = 1
+09990	RETURN
+09999	C
+20000	C ----- Return to Main Control Loop -------------------------------
+29990	GOTO 1000
+29999	C
