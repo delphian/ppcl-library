@@ -27,3 +27,5 @@ A typical PPCL programmer will be trained to make use of numerous GOTO statement
  2. `cd ppcl-library`.
 
 Although there are no functions to easily interface with a third party, most Siemens building level automation controllers come with a telnet port. It does not take much work to code up a simple interface.
+
+Feel free to contact me bryan.hazelbaker@gmail.com with any questions.
