@@ -1,0 +1,48 @@
+00001	C Uniform PPCL Program Template 2.0.
+00002	C Using the below template voids the need for goto statements. 
+00003	C Also, a software programmer that is unfamiliar with control work
+00004	C will have an easier time examining this style of code. A modular
+00005	C approach to coding is more standard in the software community; 
+00006	C though unfortunately virtually unheard of to a controls
+00007	C programmer. The template begins at line 50.
+00008	C
+00008	C @see https://gist.github.com/delphian/5906264
+00009	C @see https://github.com/delphian/ppcl-library
+00010	C @author Bryan Hazelbaker <bryan.hazelbaker@gmail.com>
+00040	C
+00050   C=================================================================C
+00052	C Template: [Uniform PPCL Program Template Version]               C
+00054	C Company Name: [Company Name]                                    C
+00056	C Program Title: [Program Title]                                  C
+00058	C Author: [First and Last name] <[Email address]>                 C
+00060	C See: [Fully formed URL of permalink source code or docs]        C
+00062	C See: [As many permanlinks as needed]                            C
+00064	C                                                                 C
+00066	C [Description of what program does and _why_ it needs to do it]  C
+00068	C                                                                 C
+00070	C Requires: [Required 3rd Party Programs|Nothing]                 C
+00072	C                                                                 C
+00074	C Version: [Version Number]                                       C
+00076	C [Description of changes since last version]                     C
+00078	C=================================================================C
+00095	C
+00100	C ----- Declare locals and power restart line. --------------------
+00490	C
+00500	C ----- Initialize Program ----------------------------------------
+00990	C
+01000	C ===== Main Control Loop =========================================
+01010	C - Short description of first function. Gosub to comment line #.
+01020	GOSUB 2000
+01030	C - Short description of second function. Gosub to comment line #.
+01040	GOSUB 3000
+01500	GOTO 20000
+01510	C ===== End Main Control Loop =====================================
+01520	C
+02000	C ----- First Function --------------------------------------------
+02980	Return
+02990	C
+03000	C ----- Second Function -------------------------------------------
+03980	Return
+03990	C
+20000	C ----- Return to Main Program Loop -------------------------------
+20010	GOTO 1000
