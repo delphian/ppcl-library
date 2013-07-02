@@ -20,7 +20,7 @@
 00119	C                                                                 C
 00120	C Description: [Description of _why_ this program must exist]     C
 00130	C [A proper description should take a few lines]                  C
-00139	C
+00139	C                                                                 C
 00140	C Bug: [Full line #] [Omit entire line unless if no bug]          C
 00150	C Bug: [Full line #] [Etc... Each bug has its own line]           C
 00159	C                                                                 C
@@ -41,9 +41,10 @@
 01020	GOSUB 2000
 01030	C - Short description of second function. Gosub to comment line #.
 01040	GOSUB 3000
-01500	GOTO 20000
-01510	C ===== End Main Control Loop =====================================
-01520	C
+01050	C - Loop Back to Top of the Main Control Loop
+01970	GOTO 20000
+01980	C ===== End Main Control Loop =====================================
+01990	C
 02000	C ----- First Function --------------------------------------------
 02980	Return
 02990	C
