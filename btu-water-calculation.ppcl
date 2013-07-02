@@ -1,0 +1,121 @@
+00050	C=================================================================C
+00060	C Template: 2.0                                                   C
+00070	C Organization Name: AOM                                          C
+00080	C Title: BTUWater                                                 C
+00090	C Author: Bryan Hazelbaker <bryan.hazelbaker@gmail.com>           C
+00100	C See: https://github.com/delphian/ppcl-library                   C
+00119	C                                                                 C
+00120	C Description: Records current BTU/H rate, total BTUs ever, total C
+00122	C BTUs for month, total BTUs for day and total BTUs per hour.     C
+00139	C                                                                 C
+00140	C Requires: time.ppcl                                             C
+00149   C                                                                 C
+00150	C Version: 2.0                                                    C
+00160	C Confirming to template version 2.0                              C
+00179   C                                                                 C
+00200	C License MIT: Copyright (C) 2013 Bryan Hazelbaker                C
+00205	C Permission is hereby granted, free of charge, to any person     C
+00210	C obtaining a copy of this software and associated documentation  C
+00215	C files (the "Software"), to deal in the Software without         C
+00220	C restriction, including without limitation the rights to use,    C
+00225	C copy, modify, merge, publish, distribute, sublicense, and/or    C
+00230	C sell copies of the Software, and to permit persons to whom the  C
+00235	C Software is furnished to do so, subject to the following        C
+00240	C conditions:                                                     C
+00245	C                                                                 C
+00250	C The above copyright notice and this permission notice shall be  C
+00255	C included in all copies or substantial portions of the Software. C
+00260	C                                                                 C
+00265	C THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, C
+00270	C EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES C
+00275	C OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND        C
+00280	C NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT     C
+00285	C HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,    C
+00290	C WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING    C
+00300	C FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR   C
+00305	C OTHER DEALINGS IN THE SOFTWARE.                                 C
+00398	C=================================================================C
+00399	C
+00400	C ----- Declare locals and power restart line ---------------------
+00410	LOCAL("KBTUH_DIFF","KBTUH_LAST","BTU_AVG","RECORDED","CHW_BTU")
+00490	ONPWRT(500)
+00499	C
+00500	C ----- Initialize Program ----------------------------------------
+00510	"$RECORDED" = 0
+00520	"$KBTUH_DIFF" = 0
+00530	"$CHW_BTU" = 0
+00540	"$KBTUH_LAST" = "CPLT_ENERGY.CHW.KBTUH.TOTAL"
+00999	C
+01000	C ===== Main Control Loop =========================================
+01010	C - Calculate Current BTU Draw
+01020	GOSUB 7000
+01030	C - Totalize BTU Draw
+01040	GOSUB 8000
+01050	C - Accumulate KBTUH Usage
+01060	GOSUB 3000
+01022	IF("CPLT_TIME.MINUTE" .LT. 58) THEN "$RECORDED" = 0
+01023	IF("CPLT_TIME.MINUTE" .GE. 58 .AND. "$RECORDED" .EQ. 0) THEN GOSUB 9000
+01980	C - Loop Back to Top of the Main Control Loop
+01990	GOTO 20000
+01998	C ===== End Main Control Loop =====================================
+01999	C
+02000	C ----- Record Total Day KBTUH Use --------------------------------
+02010	"CPLT_ENERGY.CHW.KBTUH.DAY" = "CPLT_ENERGY.CHW.KBTU.DAY"
+02020	"CPLT_ENERGY.CHW.LOADH.DAY" = "CPLT_ENERGY.CHW.LOAD.DAY"
+02030	"CPLT_ENERGY.CHW.KBTU.DAY" = 0
+02040	"CPLT_ENERGY.CHW.LOAD.DAY" = 0
+02990	RETURN
+02999	C
+03000	C ----- Accumulate KBTUH Usage ------------------------------------
+03010	IF("$KBTUH_LAST" .LE. 0) THEN GOTO 3050
+03020	"$KBTUH_DIFF" = "CPLT_ENERGY.CHW.KBTUH.TOTAL" - "$KBTUH_LAST"
+03030	IF("$KBTUH_DIFF" .LE. 0) THEN GOTO 3050
+03040	"CPLT_ENERGY.CHW.KBTU.HOUR" = "CPLT_ENERGY.CHW.KBTU.HOUR" + "$KBTUH_DIFF"
+03050	"CPLT_ENERGY.CHW.KBTU.DAY" = "CPLT_ENERGY.CHW.KBTU.DAY" + "$KBTUH_DIFF"
+03060	"CPLT_ENERGY.CHW.KBTU.MONTH" = "CPLT_ENERGY.CHW.KBTU.MONTH" + "$KBTUH_DIFF"
+03070	"$KBTUH_LAST" = "CPLT_ENERGY.CHW.KBTUH.TOTAL"
+03990	RETURN
+03999	C
+05000	C ----- Record Total Hour KBTUH, LOADH Use ------------------------
+05010	"CPLT_ENERGY.CHW.KBTUH.HOUR" = "CPLT_ENERGY.CHW.KBTU.HOUR"
+05020	"CPLT_ENERGY.CHW.LOADH.HOUR" = "CPLT_ENERGY.CHW.LOAD.HOUR"
+05030	"CPLT_ENERGY.CHW.KBTU.HOUR" = 0
+05040	"CPLT_ENERGY.CHW.LOAD.HOUR" = 0
+05990	RETURN
+05999	C
+06000	C ----- Record Total Month KBTUH Use ------------------------------
+06010	"CPLT_ENERGY.CHW.KBTUH.MONTH" = "CPLT_ENERGY.CHW.KBTU.MONTH"
+06020	"CPLT_ENERGY.CHW.KBTU.MONTH" = 0
+06990	RETURN
+06999	C
+07000	C ----- Calculate Current BTU Draw --------------------------------
+07010	"$CHW_BTU" = "CPLT_FLOW.CHW" * ("CPLT_CHW.TMP.BYPASS" - "CPLT_CHW.TMP.SUP") * 500
+07020	MAX("CPLT_ENERGY.CHW.BTU","$CHW_BTU",0)
+07030	"CPLT_ENERGY.CHW.KBTU" = "CPLT_ENERGY.CHW.BTU" / 1000
+07040	"CPLT_ENERGY.CHW.MBTU" = "CPLT_ENERGY.CHW.KBTU" / 1000
+07050	"CPLT_ENERGY.CHW.TONS" = "CPLT_ENERGY.CHW.BTU" / 12000
+07060	"CPLT_ENERGY.CHW.LOAD" = (1 - (14400 - "CPLT_ENERGY.CHW.KBTU") / 14400) * 100
+07070	MAX("CPLT_ENERGY.CHW.LOAD.HOUR","CPLT_ENERGY.CHW.LOAD","CPLT_ENERGY.CHW.LOAD.HOUR")
+07080	MAX("CPLT_ENERGY.CHW.LOAD.DAY","CPLT_ENERGY.CHW.LOAD","CPLT_ENERGY.CHW.LOAD.DAY")
+07990	RETURN
+07999	C
+08000	C ----- Totalize BTU Draw -----------------------------------------
+08010	TIMAVG("$BTU_AVG",6,10,"CPLT_ENERGY.CHW.BTU")
+08020	SAMPLE(60) "CPLT_ENERGY.CHW.KBTUH.TOTAL" = "CPLT_ENERGY.CHW.KBTUH.TOTAL" + "$BTU_AVG" / 1000 / 60
+08990	RETURN
+08999	C
+09000	C ----- Call Record Usage Sub Functions ---------------------------
+09001	C This function will only be called once per hour on minute 58.
+09010	C - Record Total Hour KBTU, LOADH Use
+09020	GOSUB 5000
+09030	C - Record Total Day KBTUH Use if at end of day
+09040	IF(TIME .EQ. 23:58) THEN GOSUB 2000
+09050	C - Record Total Month KBTUH Use if at end of month
+09060	IF(TIME .EQ. 23:58 .AND. DAYOFM .EQ. "CPLT_TIME.DIM") THEN GOSUB 6000
+09050	"$RECORDED" = 1
+09990	RETURN
+09999	C
+20000	C ----- Return to Main Control Loop ---------------------------------
+29990	GOTO 1000
+29999	C
+
