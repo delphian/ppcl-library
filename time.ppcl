@@ -75,7 +75,8 @@
 05030	IF(MONTH .EQ. 3 .OR. MONTH .EQ. 4) THEN "$TIME_DIM" = 30
 05040	IF(MONTH .EQ. 6 .OR. MONTH .EQ. 9) THEN "$TIME_DIM" = 30
 05050	IF(MONTH .EQ. 11) THEN "$TIME_DIM" = 30
-05060	"CPLT_TIME.DIM" = "$TIME_DIM"
+05060	C - Export Day of Month to a virtual point
+05070	"CPLT_TIME.DIM" = "$TIME_DIM"
 05980	RETURN
 05990	C
 20000	C ----- Return to Main Program Loop -------------------------------
